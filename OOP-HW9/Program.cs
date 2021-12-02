@@ -7,50 +7,57 @@ namespace OOP_HW9
     {
         static void Main(string[] args)
         {
-            // 1 ✔?
-            //foreach(var number in ArithmeticSequence(5, 0, 2))
-            //    Console.WriteLine(number);
+            //Print(Fibonachi());
+            // 1 ✔
+            Print(ArithmeticSequence(5, 0, 2));
 
-            //2
+
+            //2 ✔
+            //Print(TakeN<long>(Fibonachi(), 15));
 
             //3 ✔
             //foreach(var number in RandomSequence())
             //    Console.WriteLine(number);
+            //Print(RandomSequence());
 
             //4 ✔
             //foreach (var number in ArithmeticEndless(0, 7))
             //    Console.WriteLine(number);
+            //Print(ArithmeticEndless(0, 7));
 
             //5 ✔
             //foreach (var number in Fibonachi())
             //    Console.WriteLine(number);
+            //Print(Fibonachi());
 
-            //6
-            //foreach (var number in Fibonachi())
-            //    Console.WriteLine(number);
+            //6 ✔
+            //Print(Combine(new int[] { 3, 6, 9 }, new string[] { "a", "GG", "gfchgchgvc" }));
 
             //7 ✔
-            //foreach (var number in EvenNumbers(new int[] { 3, 4, 6, 8, 9, 2, 0, 7, 555, 9, 4, 456}))
-            //    Console.WriteLine(number);
+            //Print(EvenNumbers(new int[] { 3, 4, 6, 8, 9, 2, 0, 7, 555, 9, 4, 456 }));
 
             //8 ✔
-            //foreach (var number in SquaresSequence(new int[] { 1, 5, 10, 15}))
-            //    Console.WriteLine(number);
+            //Print(SquaresSequence(new int[] { 1, 5, 10, 15 }));
 
             //9 ✔
             //foreach (var number in InterchangeSequence(new int[] { 1, 5, 9}, new int[] { 2, 6, 10}))
             //    Console.WriteLine(number);
 
-            //10 
-            //foreach (var number in )
-            //    Console.WriteLine(number);
+            //10 ✔
+            //Print(GetPairs(new int[] { 1, 2, 3, 4, 5 }));
         }
-
+        public static void Print<T>(IEnumerable<T> seq)
+        {
+            foreach(var item in seq)
+            {
+                Console.WriteLine(item);
+            }
+        }
         #region Задание 1
         static IEnumerable<int> ArithmeticSequence(int n, int a0, int d)
         {
             int[] sequence = new int[n];
-            for(int i = 0; i < n; i++)
+            for (int i = 0; i < n; i++)
             {
                 sequence[i] = a0 + i * d;
                 yield return sequence[i];
@@ -65,7 +72,20 @@ namespace OOP_HW9
         #endregion
 
         #region Задание 2
-
+        static IEnumerable<T> TakeN<T>(IEnumerable<T> seq, int n)
+        {
+            int i = 0;
+            foreach (var item in seq)
+                if (i < n)
+                {
+                    i++;
+                    yield return item;
+                }
+                else
+                {
+                    break;
+                }
+        }
         #endregion
 
         #region Задание 3
@@ -110,10 +130,11 @@ namespace OOP_HW9
         #endregion
 
         #region Задание 6
-        //static Tuple<T, T1> Combine<T, T1>(List<T> seq1, List<T1> seq2)
-        //{
-            
-        //}
+        static IEnumerable<Tuple<T, T1>> Combine<T, T1>(T[] seq1, T1[] seq2)
+        {
+            for (int i = 0; i < seq1.Length; i++)
+                yield return new Tuple<T, T1>(seq1[i], seq2[i]);
+        }
         #endregion
 
         #region Задание 7
@@ -136,7 +157,7 @@ namespace OOP_HW9
         #region Задание 9
         static IEnumerable<int> InterchangeSequence(int[] seq1, int[] seq2)
         {
-            for(int i = 0; i < seq1.Length; i++)
+            for (int i = 0; i < seq1.Length; i++)
             {
                 yield return seq1[i];
                 yield return seq2[i];
@@ -145,10 +166,11 @@ namespace OOP_HW9
         #endregion
 
         #region Задание 10
-        //static IEnumerable<int> GetPairs(int[] seq1, int[] seq2)
-        //{
-
-        //}
+        static IEnumerable<Tuple<T, T>> GetPairs<T>(T[] seq)
+        {
+            for (int i = 0; i < seq.Length - 1; i++)
+                yield return new Tuple<T, T>(seq[i], seq[i + 1]);
+        }
         #endregion
     }
 }
